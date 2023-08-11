@@ -2,6 +2,25 @@
 on: [push]
 
 jobs:
+     
+  backup:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Azure CLI
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Run SQL Backup Script
+      run: |
+        # Run your SQL backup script here using the Azure CLI or other SQL tools
+        az sql db export
+        # Make sure to use the Managed Identity for authentication
+
   build:
     runs-on: ubuntu-latest
     steps:
