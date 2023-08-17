@@ -20,7 +20,7 @@ jobs:
 
       - name: Run SQL Script
         run: |
-          psql -h $DATABASE_HOST -U $DATABASE_USERNAME -d $DATABASE_NAME -a -f script.sql
+          psql -h $DATABASE_HOST -u $DATABASE_USERNAME -d $DATABASE_NAME -a -f sample_table.sql
 
 env:
   DATABASE_HOST: ${{ secrets.DATABASE_HOST }}
