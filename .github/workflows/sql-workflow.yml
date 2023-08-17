@@ -1,32 +1,16 @@
-# .github/workflows/sql-workflow.yml
-on: [push]
+name: SQL for GitHub Actions
+
+on:
+push:
+    branches: [ main ]
+pull_request:
+    branches: [ main ]
 
 jobs:
-     
-  backup:
-    runs-on: ubuntu-latest
-
+build:
+    runs-on: windows-latest
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
-
-    - name: Set up Azure CLI
-      uses: azure/login@v1
-      with:
+    - uses: actions/checkout@v1
+    - uses: azure/login@v1
+    with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
-
-    - name: Run SQL Backup Script
-      run: |
-        # Run your SQL backup script here using the Azure CLI or other SQL tools
-        az sql db export
-        # Make sure to use the Managed Identity for authentication
-
-  build:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
-    - uses: azure/sql-action@v2.2
-      with:        
-        connection-string: ${{ secrets.AZURE_SQL_CONNECTION_STRING }}
-        path: 'Database.sqlproj'
-        action: 'publish'
