@@ -1,16 +1,29 @@
-# .github/workflows/sql-workflow.yml
-on: [push]
+name: Database Workflow
+
+on:
+  push:
+    branches:
+      - main
 
 jobs:
-     
-  backup:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Set up Azure CLI
-      uses: azure/login@v1
-      with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - name: Set up PostgreSQL
+        run: |
+          sudo apt-get -yqq install postgresql-client
+          export PGPASSWORD=$DATABASE_PASSWORD
+
+      - name: Run SQL Script
+        run: |
+          psql -h $DATABASE_HOST -U $DATABASE_USERNAME -d $DATABASE_NAME -a -f script.sql
+
+env:
+  DATABASE_HOST: ${{ secrets.DATABASE_HOST }}
+  DATABASE_USERNAME: ${{ secrets.DATABASE_USERNAME }}
+  DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
+  DATABASE_NAME: ${{ secrets.DATABASE_NAME }}
