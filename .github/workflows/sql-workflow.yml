@@ -20,10 +20,10 @@ jobs:
 
       - name: Run SQL Script
         run: |
-          psql -h $DATABASE_HOST -u $DATABASE_USERNAME -d $DATABASE_NAME -a -f sample_table.sql
+          psql -h $DATABASE_HOST -u olympus_sqldb_test_admin -d $DATABASE_NAME -a -f sample_table.sql
 
 env:
   DATABASE_HOST: ${{ secrets.DATABASE_HOST }}
-  DATABASE_USERNAME: ${{ secrets.DATABASE_USERNAME }}
+  #DATABASE_USERNAME: ${{ secrets.DATABASE_USERNAME }}
   DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
   DATABASE_NAME: ${{ secrets.DATABASE_NAME }}
