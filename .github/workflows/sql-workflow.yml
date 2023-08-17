@@ -9,8 +9,8 @@ on:
 jobs:
     build:
         runs-on: windows-latest
-            steps:
-            - uses: actions/checkout@v1
-            - uses: azure/login@v1
-              with:
-                creds: ${{ secrets.AZURE_CREDENTIALS }}
+        steps:
+        - uses: actions/checkout@v1
+        - uses: azure/login@v1
+        with:
+            creds: ${{ secrets.AZURE_CREDENTIALS }}
